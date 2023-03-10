@@ -9,13 +9,14 @@ public class Tool {
     public Tool() {
     }
 
-    public Tool(String id, Brand brand, String name, String description, int price, String img) {
+    public Tool(String id, Brand brand, String name, String description, int price, String img, String country) {
         this.id = id;
         this.brand = brand;
         this.name = name;
         this.description = description;
         this.price = price;
         this.img = img;
+        this.country = country;
     }
 
     @Id
@@ -32,12 +33,22 @@ public class Tool {
 
     private String img;
 
+    private String country;
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public Brand getBrand() {
