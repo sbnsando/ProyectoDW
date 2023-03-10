@@ -9,8 +9,7 @@ public class Tool {
     public Tool() {
     }
 
-    public Tool(String id, Brand brand, String name, String description, int price, String img, String country) {
-        this.id = id;
+    public Tool(Brand brand, String name, String description, int price, String img, String country) {
         this.brand = brand;
         this.name = name;
         this.description = description;
@@ -21,8 +20,9 @@ public class Tool {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private String id;
+    private int id;
 
+    @ManyToOne
     private Brand brand;
 
     private  String name;
@@ -35,11 +35,11 @@ public class Tool {
 
     private String country;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
