@@ -8,7 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface ToolRepository extends JpaRepository<Tool, Integer> {
-    Optional<Tool> findByName(String name);
-    boolean existByName(String name);
+    Tool findByName(String name);
 
 }

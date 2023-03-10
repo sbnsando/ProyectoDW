@@ -9,7 +9,7 @@ public class Tool {
     public Tool() {
     }
 
-    public Tool(Brand brand, String name, String description, int price, String img, String country) {
+    public Tool(String brand, String name, String description, int price, String img, String country) {
         this.brand = brand;
         this.name = name;
         this.description = description;
@@ -22,17 +22,22 @@ public class Tool {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    private Brand brand;
+    @Column(name = "brand")
+    private String brand;
 
+    @Column(name = "name")
     private  String name;
 
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "price")
     private int price;
 
+    @Column(name = "img")
     private String img;
 
+    @Column(name = "country")
     private String country;
 
     public int getId() {
@@ -51,11 +56,11 @@ public class Tool {
         this.country = country;
     }
 
-    public Brand getBrand() {
+    public String getBrand() {
         return brand;
     }
 
-    public void setBrand(Brand brand) {
+    public void setBrand(String brand) {
         this.brand = brand;
     }
 

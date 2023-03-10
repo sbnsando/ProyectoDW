@@ -3,9 +3,13 @@ package com.example.Projecto.service;
 import com.example.Projecto.entity.Tool;
 import com.example.Projecto.repository.ToolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,17 +21,27 @@ public class ToolService {
     ToolRepository toolRepository;
 
     public List<Tool> list(){
-        return toolRepository.findAll();
+        List<Tool> herrs = new ArrayList<>();
+        toolRepository.findAll().forEach(herrs::add);
+        return herrs;
+
     }
 
-    public Optional<Tool> getOne(int id){
-        return toolRepository.findById(id);
+    public Tool getOneById(int id) {
+
+        Tool herr = null;
+        herr = toolRepository.findById(id).get();
+
+        return herr;
     }
 
-    public Optional<Tool> getByName(String name){
-        return toolRepository.findByName(name);
-    }
+    public Tool getOneByName(String name) {
 
+        Tool herr = null;
+        herr = toolRepository.findByName(name);
+
+        return herr;
+    }
     public void save(Tool tool){
         toolRepository.save(tool);
     }
@@ -41,6 +55,6 @@ public class ToolService {
     }
 
     public boolean existByName(String name){
-        return toolRepository.existByName(name);
+        return toolRepository.findByName(name) == null ? false : true;
     }
 }

@@ -4,7 +4,7 @@ import com.example.Projecto.entity.Brand;
 
 public class ToolDto {
 
-    private Brand brand;
+    private String brand;
 
     private  String name;
 
@@ -19,7 +19,7 @@ public class ToolDto {
     public ToolDto(){
     }
 
-    public ToolDto(Brand brand, String name, String description, int price, String img, String country) {
+    public ToolDto(String brand, String name, String description, int price, String img, String country) {
         this.brand = brand;
         this.name = name;
         this.description = description;
@@ -28,11 +28,11 @@ public class ToolDto {
         this.country = country;
     }
 
-    public Brand getBrand() {
+    public String getBrand() {
         return brand;
     }
 
-    public void setBrand(Brand brand) {
+    public void setBrand(String brand) {
         this.brand = brand;
     }
 

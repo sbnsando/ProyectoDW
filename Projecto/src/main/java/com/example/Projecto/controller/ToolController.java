@@ -21,6 +21,11 @@ public class ToolController {
     @Autowired
     private ToolService toolService;
 
+    @GetMapping("/")
+    public String hola(){
+        return "Hola";
+    }
+
     @GetMapping("/list")
     public ResponseEntity<List<Tool>> list(){
         List<Tool> list = toolService.list();
@@ -32,18 +37,21 @@ public class ToolController {
         if(!toolService.existById(id)){
             return new ResponseEntity(new Message("Not exist"), HttpStatus.NOT_FOUND);
         }
-        Tool tool = toolService.getOne(id).get();
+        Tool tool = toolService.getOneById(id);
         return new ResponseEntity<Tool>(tool, HttpStatus.OK);
     }
 
+
     @GetMapping("/detailname/{name}")
     public ResponseEntity<Tool> getByName(@PathVariable("name") String name){
+
         if(!toolService.existByName(name)){
             return new ResponseEntity(new Message("Not exist"), HttpStatus.NOT_FOUND);
         }
-        Tool tool = toolService.getByName(name).get();
+        Tool tool = toolService.getOneByName(name);
         return new ResponseEntity<Tool>(tool, HttpStatus.OK);
     }
+
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody ToolDto toolDto){
@@ -66,14 +74,14 @@ public class ToolController {
     public ResponseEntity<?> update(@PathVariable("id")int id, @RequestBody ToolDto toolDto){
         if(!toolService.existById(id))
             return new ResponseEntity(new Message("not exist"), HttpStatus.NOT_FOUND);
-        if(toolService.existByName(toolDto.getName()) && toolService.getByName(toolDto.getName()).get().getId() != id)
+        if(toolService.existByName(toolDto.getName()) && toolService.getOneByName(toolDto.getName()).getId() != id)
             return new ResponseEntity(new Message("tool exist in database"), HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(toolDto.getName()))
             return new ResponseEntity(new Message("Name is required"),HttpStatus.BAD_REQUEST);
         if((Integer) toolDto.getPrice() == null || toolDto.getPrice()<0)
-            return new ResponseEntity(new Message("Name is required"),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Message("Price is required"),HttpStatus.BAD_REQUEST);
 
-        Tool tool = toolService.getOne(id).get();
+        Tool tool = toolService.getOneById(id);
         tool.setName(toolDto.getName());
         tool.setPrice(toolDto.getPrice());
         try{
@@ -83,6 +91,7 @@ public class ToolController {
             return new ResponseEntity(new Message("Error"+e), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id")int id){
