@@ -2,6 +2,9 @@ package com.example.Projecto.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "tools")
 public class Tool {
@@ -9,36 +12,41 @@ public class Tool {
     public Tool() {
     }
 
-    public Tool(String brand, String name, String description, int price, String img, String country) {
-        this.brand = brand;
+    public Tool(int id, String name, String img, String description, Brand brand, int price, List<String> citiesAvailable, int quantAvailable) {
+        this.id = id;
         this.name = name;
-        this.description = description;
-        this.price = price;
         this.img = img;
-        this.country = country;
+        this.description = description;
+        this.brand = brand;
+        this.price = price;
+        this.citiesAvailable = citiesAvailable;
+        this.quantAvailable = quantAvailable;
     }
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "brand")
-    private String brand;
-
     @Column(name = "name")
     private  String name;
-
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "price")
-    private int price;
 
     @Column(name = "img")
     private String img;
 
-    @Column(name = "country")
-    private String country;
+    @Column(name = "description")
+    private String description;
+
+    @ManyToOne
+    private Brand brand;
+
+    @Column(name = "price")
+    private int price;
+
+    @ElementCollection
+    private List<String> citiesAvailable;
+
+    @Column(name = "quantAvailable")
+    private int quantAvailable;
 
     public int getId() {
         return id;
@@ -46,22 +54,6 @@ public class Tool {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
     }
 
     public String getName() {
@@ -72,12 +64,28 @@ public class Tool {
         this.name = name;
     }
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
     public int getPrice() {
@@ -88,11 +96,19 @@ public class Tool {
         this.price = price;
     }
 
-    public String getImg() {
-        return img;
+    public List<String> getCitiesAvailable() {
+        return citiesAvailable;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setCitiesAvailable(List<String> citiesAvailable) {
+        this.citiesAvailable = citiesAvailable;
+    }
+
+    public int getQuantAvailable() {
+        return quantAvailable;
+    }
+
+    public void setQuantAvailable(int quantAvailable) {
+        this.quantAvailable = quantAvailable;
     }
 }
